@@ -12,20 +12,15 @@ import com.waldo.waldointerview.data.Record;
 
 import java.util.List;
 
-/**
- * Created by useruser on 9/10/18.
- */
-
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHolder> {
 
+    //this multiplies the data size to better test performance with large datasets.
     private static final int FACTOR = 1000;
 
     private List<Record> galleryList;
-    private Context context;
 
-    public GalleryAdapter(Context context, List<Record> galleryList) {
+    GalleryAdapter(final List<Record> galleryList) {
         this.galleryList = galleryList;
-        this.context = context;
     }
 
     @Override
@@ -43,6 +38,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
 
         final Record record = galleryList.get(i % galleryList.size());
 
+        //cancel the image loading of previous bind then load with the current data
         Picasso.get().cancelRequest(viewHolder.img);
         Picasso.get().load(record.getImageURL()).into(viewHolder.img);
 
@@ -52,12 +48,14 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     public void onViewRecycled(ViewHolder holder) {
         super.onViewRecycled(holder);
 
+        //cancel the pending image load when recycled
         Picasso.get().cancelRequest(holder.img);
     }
 
     @Override
     public boolean onFailedToRecycleView(ViewHolder holder) {
 
+        //cancel the pending image load if failed to recycle
         Picasso.get().cancelRequest(holder.img);
         return super.onFailedToRecycleView(holder);
     }
@@ -66,6 +64,7 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
     public void onViewDetachedFromWindow(ViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
 
+        //cancel the pending image load if detached
         Picasso.get().cancelRequest(holder.img);
     }
 
@@ -74,12 +73,18 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.ViewHold
         return galleryList.size() * FACTOR;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
+
         private ImageView img;
-        public ViewHolder(View view) {
+
+        /**
+         *
+         * @param view - root view
+         */
+        private ViewHolder(View view) {
             super(view);
 
-            img = (ImageView) view.findViewById(R.id.img);
+            img = view.findViewById(R.id.img);
         }
     }
 }

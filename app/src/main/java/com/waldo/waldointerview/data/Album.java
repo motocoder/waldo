@@ -12,6 +12,12 @@ public class Album {
     private final String name;
     private final List<Record> records;
 
+    /**
+     *
+     * @param id - id of the album
+     * @param name - name of the album
+     * @param records - list of records for the album
+     */
     public Album(
         final String id,
         final String name,

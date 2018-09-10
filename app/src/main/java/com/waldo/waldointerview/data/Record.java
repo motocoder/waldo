@@ -8,6 +8,10 @@ public class Record {
 
     private final String imageURL;
 
+    /**
+     *
+     * @param imageURL - url of the image for the album
+     */
     public Record(final String imageURL) {
         this.imageURL = imageURL;
     }
