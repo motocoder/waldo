@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
@@ -29,7 +28,7 @@ public class WaldoGallery extends AppCompatActivity {
         
         setContentView(R.layout.activity_waldo_gallery);
 
-        recyclerView = (RecyclerView)findViewById(R.id.imagegallery);
+        recyclerView = findViewById(R.id.imagegallery);
         recyclerView.setHasFixedSize(true);
 
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),3);
@@ -84,13 +83,13 @@ public class WaldoGallery extends AppCompatActivity {
 
             //load and parse the data
             try {
-                final Album album = api.getImageData(
+
+                return api.getImageData(
                         "__dev.waldo.auth__=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2NvdW50X2lkIjoiZjdkMWI5ZWYtYWE0Yi00YjY3LWFhZjQtYzYzZmE1MDYzOWM0Iiwicm9sZXMiOlsiY29uc3VtZXIiXSwiaXNzIjoid2FsZG86Y29yZSIsImdyYW50cyI6WyJhbGJ1bXM6dmlldzpwdWJsaWMiLCJhbGJ1bXM6ZWRpdDpvd25lZCIsImFsYnVtczpjcmVhdGU6cHJpdmF0ZSIsImFsYnVtczp2aWV3OmpvaW5lZCIsImFsYnVtczpkZWxldGU6b3duZWQiLCJhbGJ1bXM6Y3JlYXRlOnB1YmxpYyIsImFsYnVtczpjcmVhdGU6b3duZWQiLCJhbGJ1bXM6dmlldzpvd25lZCJdLCJleHAiOjE1MzkwNDQ1MzksImlhdCI6MTUzNjQ1MjUzOX0.xTQhv0QCkk4FqAdnmIFeezISw2TyKEleRKTJ1bNOtos"
                 );
 
-                return album;
-
-            } catch (WaldoNetworkException e) {
+            }
+            catch (WaldoNetworkException e) {
                 e.printStackTrace();
             }
 
